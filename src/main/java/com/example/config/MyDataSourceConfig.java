@@ -2,15 +2,18 @@ package com.example.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
+import com.alibaba.druid.support.http.WebStatFilter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.Arrays;
 
-@Configuration
+//@Configuration
 public class MyDataSourceConfig {
 
     @ConfigurationProperties("spring.datasource")
@@ -19,7 +22,8 @@ public class MyDataSourceConfig {
 
         DruidDataSource druidDataSource = new DruidDataSource();
         //配置druid监控功能
-        druidDataSource.setFilters("stat");
+        //加上 wall，表示添加上防火墙的功能
+        druidDataSource.setFilters("stat,wall");
 
         return druidDataSource;
     }
@@ -29,7 +33,28 @@ public class MyDataSourceConfig {
     public ServletRegistrationBean statViewServlet(){
 
         StatViewServlet statViewServlet = new StatViewServlet();
+        ServletRegistrationBean<StatViewServlet> registrationBean = new ServletRegistrationBean<>(statViewServlet,"/druid/*");
 
-        return new ServletRegistrationBean<StatViewServlet>(statViewServlet,"/druid/*");
+        //配置登录监控页时的登录名和密码
+        registrationBean.addInitParameter("loginUsername","root");
+        registrationBean.addInitParameter("loginPassword","123456");
+
+        return registrationBean;
     }
+
+    /**
+     * 开启druid web关联监控
+     */
+    @Bean
+    public FilterRegistrationBean webStatFilter(){
+
+        WebStatFilter webStatFilter = new WebStatFilter();
+        FilterRegistrationBean<WebStatFilter> filterRegistrationBean = new FilterRegistrationBean<>(webStatFilter);
+
+        filterRegistrationBean.setUrlPatterns(Arrays.asList("/*"));
+        filterRegistrationBean.addInitParameter("exclusions","*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");
+
+        return filterRegistrationBean;
+    }
+
 }

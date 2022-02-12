@@ -34,10 +34,17 @@
         </dependency>
 
         <!--druid 数据库连接池-->
-        <dependency>
+        <!--<dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
             <version>1.1.22</version>
+        </dependency>-->
+
+        <!--引入druid的启动器-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.17</version>
         </dependency>
 
         <dependency>
