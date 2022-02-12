@@ -38,10 +38,24 @@ CREATE TABLE user
 );
 
 INSERT INTO user (id, name, age, email) VALUES
-(1, 'Jone', 18, 'test1@baomidou.com'),
+/*(1, 'Jone', 18, 'test1@baomidou.com'),
 (2, 'Jack', 20, 'test2@baomidou.com'),
 (3, 'Tom', 28, 'test3@baomidou.com'),
 (4, 'Sandy', 21, 'test4@baomidou.com'),
-(5, 'Billie', 24, 'test5@baomidou.com');
+(5, 'Billie', 24, 'test5@baomidou.com'),*/
+(6, 'Jone', 18, 'test6@baomidou.com'),
+(7, 'Jack', 20, 'test7@baomidou.com'),
+(8, 'Tom', 28, 'test8@baomidou.com'),
+(9, 'Sandy', 21, 'test9@baomidou.com'),
+(10, 'Billie', 24, 'test10@baomidou.com'),
+(11, 'Jone', 18, 'test11@baomidou.com'),
+(12, 'Jack', 20, 'test12@baomidou.com'),
+(13, 'Tom', 28, 'test13@baomidou.com'),
+(14, 'Sandy', 21, 'test14@baomidou.com'),
+(15, 'Billie', 24, 'test15@baomidou.com');
+
+;
+
+;
 
 
