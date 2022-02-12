@@ -1,17 +1,30 @@
 package com.example.controller;
 
 import com.example.bean.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 
 @Controller
 public class IndexController {
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @ResponseBody
+    @GetMapping("/sql")
+    public String queryFormDB(){
+
+        Long result = jdbcTemplate.queryForObject("select count(*) from account_tbl", Long.class);
+        return result.toString();
+    }
 
     /**
      * 去登陆页

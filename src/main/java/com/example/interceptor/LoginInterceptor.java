@@ -31,8 +31,10 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
         //拦截住，未登录，跳转到登录页面
         //携带未登录成功的提示信息
-        session.setAttribute("msg","请先登录！");
-        response.sendRedirect("/");
+        request.setAttribute("msg","请先登录！");
+        //response.sendRedirect("/");
+        //这里我们直接使用请求转发的方式跳转到登录页面
+        request.getRequestDispatcher("/").forward(request,response);
 
         return false;
 
